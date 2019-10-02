@@ -13,7 +13,7 @@ date: \today
 
 TODO: proof?
 
-We can modify the systems such the system 1 can't be equal to zero, but the system 2 can. Otherwise, the solutions to the systems remain unaffected.
+We can move the element $\{0\}$ from system 1 to system 2 by modifying the systems. Otherwise, the solutions to the systems remain unaffected.
 
 1) $Ax<0, c^Tx≥0, x∈𝐑^n$
 2) $A^Ty=c, y≥0, y∈𝐑^m$.
@@ -32,57 +32,57 @@ has only one solution.
 ## Exercise 2.3
 **The definition of a convex set**: A set $S⊆𝐑^n$ is said to be convex if $\overline{x}=∑_{j=1}^k λ_j x_j$ belongs to $S$, where $∑λ_j=1$, $λ_j≥0$ and $x_j∈S$ for $j=1,...,k.$
 
-### (a)
-The set $S$ is convex if
-$$
-α≤a^T\overline{x}≤β.
-$$
+In each of the following sections we determine the convexity of set $S$ by testing if element $\overline{x}$ belong to the set $S.$ 
 
-...
+### (a)
+Let test if element $\overline{x}$ belong to the set $S.$ Elements of set $S$ must satisfy the constraint $α≤a^T x≤β$ for all $x∈S$. Then
 $$
 a^T\overline{x} = a^T∑_{j=1}^k λ_j x_j=∑_{j=1}^k λ_j (a^T x_j)
 $$
-Lower bound
+Lower bound 
 $$
-∑_{j=1}^k λ_j (a^T x_j) ≥ ∑_{j=1}^k λ_j α = α ∑_{j=1}^k λ_j = α
+a^T\overline{x} = ∑_{j=1}^k λ_j (a^T x_j) ≥ ∑_{j=1}^k λ_j α = α ∑_{j=1}^k λ_j = α
 $$
 Upper bound
 $$
-∑_{j=1}^k λ_j (a^T x_j) ≤ ∑_{j=1}^k λ_j β = β ∑_{j=1}^k λ_j = β
+a^T\overline{x} = ∑_{j=1}^k λ_j (a^T x_j) ≤ ∑_{j=1}^k λ_j β = β ∑_{j=1}^k λ_j = β
 $$
-Set $S$ is convex.
+Therefore
+$$
+α≤a^T\overline{x}≤β,
+$$
+which implies that $\overline{x}∈S$ and set $S$ is convex.
 
 ### (b) 
-$$
-β≤\overline{x}≤α
-$$
-$α,β$ are vectors
-
-$$
-\overline{x}=∑_{j=1}^k λ_j x_j
-$$
+Let test if element $\overline{x}$ belong to the set $S.$ Elements of set $S$ must satisfy the constraint $α≤x≤β$ for all $x∈S$. Then:
 
 Lower bound
 $$
-∑_{j=1}^k λ_j x_j ≥ ∑_{j=1}^k λ_j α = α ∑_{j=1}^k λ_j = α
+\overline{x}=∑_{j=1}^k λ_j x_j ≥ ∑_{j=1}^k λ_j α = α ∑_{j=1}^k λ_j = α
 $$
 Upper bound
 $$
-∑_{j=1}^k λ_j x_j ≤ ∑_{j=1}^k λ_j β = β ∑_{j=1}^k λ_j = β
+\overline{x}=∑_{j=1}^k λ_j x_j ≤ ∑_{j=1}^k λ_j β = β ∑_{j=1}^k λ_j = β
 $$
-Set $S$ is convex.
+Therefore
+$$
+α≤\overline{x}≤β,
+$$
+which implies that $\overline{x}∈S$ and set $S$ is convex.
 
 ### (c)
+Let test if element $\overline{x}$ belong to the set $S.$ Elements of set $S$ must satisfy the constraints $a_i^Tx≤b_i$ for all $x∈S$ and $i∈\{1,2\}$. Then
 $$
-a_i^T \overline{x}= a_i^T ∑_{j=1}^k λ_j x_j = ∑_{j=1}^k λ_j (a_i^T x_j) ≤ ∑_{j=1}^k λ_j b_i = b_i ∑_{j=1}^k λ_j = b_i, i∈\{1,2\}
+a_i^T \overline{x}= a_i^T ∑_{j=1}^k λ_j x_j = ∑_{j=1}^k λ_j (a_i^T x_j) ≤ ∑_{j=1}^k λ_j b_i = b_i ∑_{j=1}^k λ_j = b_i, ∀i∈\{1,2\}
 $$
-Set $S$ is convex.
+which implies that $\overline{x}∈S$ and set $S$ is convex.
 
 ### (d)
+Let test if element $\overline{x}$ belong to the set $S.$ Elements of set $S$ must satisfy the constraints $x=A^Ty$ for all $x∈S$. Then
 $$
 \overline{x}=∑_{j=1}^k λ_j x_j = ∑_{j=1}^k λ_j A^T y = A^T y ∑_{j=1}^k λ_j = A^T y
 $$
-Set $S$ is convex.
+which implies that $\overline{x}∈S$ and set $S$ is convex.
 
 ## Exercise 2.4
 
