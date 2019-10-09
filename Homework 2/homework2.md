@@ -33,22 +33,43 @@ $$
 $$
 for all $x∈S.$
 
-<!-- **Triangle inequality**: 
-$$
-\|x+y\|≤\|x\|+\|y\|
-$$ -->
-
-Dot product: 
-$$
-x⋅y=\|x\|\|y\|\cos(θ)
-$$
-
 ---
 
+Using the closest point theorem we have
 $$
-\|x-y\|
+\begin{cases}
+(x-\overline{x})^T(z_1-\overline{x})≤0, ∀z_1∈S \\
+(y-\overline{y})^T(z_2-\overline{y})≤0, ∀z_2∈S
+\end{cases}.
 $$
-
+Now, we can choose $z_1=\overline{y}∈S$ and $z_2=\overline{x}∈S$
+$$
+\begin{cases}
+(x-\overline{x})^T(\overline{y}-\overline{x})≤0 \\
+(y-\overline{y})^T(\overline{x}-\overline{y})≤0
+\end{cases}.
+$$
+By adding the inequalities together we have
+$$
+\begin{aligned}
+(x-\overline{x})^T(\overline{y}-\overline{x}) + (y-\overline{y})^T(\overline{x}-\overline{y}) &≤ 0 \\
+x^T\overline{y} - x^T\overline{x} - \overline{x}^T\overline{y} + \overline{x}^T\overline{x} + y^T\overline{x} - y^T\overline{y} - \overline{y}^T\overline{x} + \overline{y}^T\overline{y} &≤0
+\end{aligned}
+$$
+By collecting the terms we get
+$$
+\begin{aligned}
+(\overline{x}-\overline{y})^T(\overline{x}-\overline{y}) - (x-y)^T(\overline{x}-\overline{y})&≤0 \\
+(\overline{x}-\overline{y})^T(\overline{x}-\overline{y}) &≤ (x-y)^T(\overline{x}-\overline{y}) \\
+&= \|(x-y)\| \|\overline{x}-\overline{y}\| \cos θ \\ 
+&≤ \|(x-y)\| \|\overline{x}-\overline{y}\| \\
+\|\overline{x}-\overline{y}\|^2 &≤ \|(x-y)\| \|\overline{x}-\overline{y}\|
+\end{aligned}
+$$
+Finally dividing by $\|\overline{x}-\overline{y}\|≥0$ we have
+$$
+\|\overline{x}-\overline{y}\| ≤ \|x-y\|.
+$$
 
 # Exercise 2.3
 **The definition of a convex set**: A set $S⊆𝐑^n$ is said to be convex if $\overline{x}=∑_{j=1}^k λ_j x_j$ belongs to $S$, where $∑λ_j=1$, $λ_j≥0$ and $x_j∈S$ for $j=1,...,k.$
