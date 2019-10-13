@@ -4,24 +4,22 @@ author: Jaan Tollander de Balsch - 452056
 date: \today
 ---
 # Exercise 2.1
-**Farkas' theorem**: Let $A$ be an $m×n$ matrix and $c$ be an $n$-vector. Then exatcly one of the following two systems has a solution:
+**Farkas' theorem**: Let $A$ be an $m×n$ matrix and $c$ be an $n$-vector. Then exactly one of the following two systems has a solution:
 
-1) $Ax≤0, c^Tx>0, x∈𝐑^n$
-2) $A^Ty=c, y≥0, y∈𝐑^m.$
+1) $Ax≤0, c^Tx>0, x∈𝐑^n$
+2) $A^Ty=c, y≥0, y∈𝐑^m.$
 
 ---
 
-TODO: proof?
-
 We can move the element $\{0\}$ from system 1 to system 2 by modifying the systems. Otherwise, the solutions to the systems remain unaffected.
 
-1) $Ax<0, c^Tx≥0, x∈𝐑^n$
-2) $A^Ty=c, y≥0, y∈𝐑^m$.
+1) $Ax<0, c^Tx≥0, x∈𝐑^n$
+2) $A^Ty=c, y≥0, y∈𝐑^m$.
 
 Hence, if we let $c=0$, the system
 
 1) $Ax<0, x∈𝐑^n$
-2) $A^Ty=0, y≥0, y∈𝐑^m$.
+2) $A^Ty=0, y≥0, y∈𝐑^m$.
 
 has only one solution.
 
@@ -74,7 +72,7 @@ $$
 # Exercise 2.3
 **The definition of a convex set**: A set $S⊆𝐑^n$ is said to be convex if $\overline{x}=∑_{j=1}^k λ_j x_j$ belongs to $S$, where $∑λ_j=1$, $λ_j≥0$ and $x_j∈S$ for $j=1,...,k.$
 
-In each of the following sections we determine the convexity of set $S$ by testing if element $\overline{x}$ belong to the set $S.$ 
+In each of the following sections, we determine the convexity of set $S$ by testing if element $\overline{x}$ belong to the set $S.$ 
 
 ## (a)
 Let test if element $\overline{x}$ belong to the set $S.$ Elements of set $S$ must satisfy the constraint $α≤a^T x≤β$ for all $x∈S$. Then
@@ -200,17 +198,17 @@ f(x)=g(h(x))
 $$
 where $g(y) = \exp(βy)$ and $h(x) = x^TAx.$ 
 
-Now we can shows that $f(x)$ is convex  using convexity under composition:
+Now we can show that $f(x)$ is convex using convexity under composition:
 
-> $g$ is monotonically non-decreasing convex function over the set $\{h(x):x∈S\}.$ 
+1) $g$ is monotonically non-decreasing convex function over the set $\{h(x):x∈S\}.$ 
 
 Because $A$ is positive semidefinite, $h(x)=x^TAx≥0$ for all $x∈S$. Since $g$ is exponential function and coefficient $β$ is positive, it is non-decreasing over the set $\{h(x):x∈S\}$ because the elements are greater of equal to zero.
 
-> $h(x)$ is a convex function.
+2) $h(x)$ is a convex function.
 
-TODO: ...
+We can write $h(x)$ into form $g'(h'(x))$ where $g'(x)=x^T h'(x)$ and $h'(x)=Ax.$ Since $g'$ is convex and $h'$ is affine, the function $h(x)$ is convex.
 
-$$
+<!-- $$
 \begin{aligned}
 h(λx_1+(1-λ)x_2)&=(λx_1+(1-λ)x_2)^T A (λx_1+(1-λ)x_2) \\
 &= λ^2 x_1^T A x_1 + λ(1-λ) (x_1^T A x_2 + x_2^T A x_1) + (1-λ)^2 x_2^T A x_2
@@ -224,7 +222,7 @@ $$
 &≤λx_1^T A x_1 + (1-λ)x_2^T A x_2 \\
 &=λh(x_1) + (1-λ)h(x_2)
 \end{aligned}
-$$
+$$ -->
 
 
-# References
+<!-- # References -->
