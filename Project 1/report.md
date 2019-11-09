@@ -6,7 +6,7 @@ documentclass: artikel3
 header-includes: |
     \paperheight = 29.70 cm  \paperwidth = 21.0 cm  \hoffset        = 0.46 cm
     \headheight  =  0.81 cm  \textwidth  = 15.0 cm  \evensidemargin = 0.00 cm
-    \headsep     =  0.81 cm	 \textheight = 9.00 in  \oddsidemargin  = 0.00 cm
+    \headsep     =  0.81 cm  \textheight = 9.00 in  \oddsidemargin  = 0.00 cm
     \usepackage{enumerate}
     \usepackage{amsfonts}
     \usepackage{amsmath}
@@ -36,16 +36,14 @@ Jaan Tollander de Balsch\\
 
 
 # Project description
-The purpose of this project is to compare the performance of different unconstrained optimization methods. As a reference to the theory of unconstained optimization methods, lecture notes by @lectures are used.
+The purpose of this project is to compare the performance of different unconstrained optimization methods.  As a reference to the theory of unconstrained optimization methods, we used the lecture notes @lectures, which are based on the course textbook, @nonlinear_programming_3rd.
 
 ## Unconstrained Optimization Method
 Conceptually, an unconstrained optimization method is implemented as follows:
 
-<!-- TODO: implemented as a minimization problem -->
-
 ---
 
-**Input**: Function $f$, solution tolerance $ϵ$, maximum iteration limit $N$ and method specific parameters.
+**Input**: Continuous and differentiable function $f$, solution tolerance $ϵ$, maximum iteration limit $N$ and method specific parameters.
 
 **Output**: Point $x_k$ in which the function value $f(x_k)$ is optimal.
 
@@ -57,25 +55,23 @@ Conceptually, an unconstrained optimization method is implemented as follows:
 
 ---
 
-The idea is that the algorithm takes a step of size $λ_k$ into a direction $d_k$ each iteration $k$ until optimality condition is reached. Numerically, the optimality condition is that the gradient is close enough to zero, that is, the norm of the gradient is less than the set tolerance $ϵ$. 
+The idea is that the algorithm takes a step of size $λ_k$ into a direction $d_k$ each iteration $k$ until it reaches the optimality condition. Numerically, the optimality condition is that the gradient is close enough to zero; that is, the norm of the gradient is less than the set tolerance $ϵ$. If the function $f$ is convex or quasi-convex, the solution $x_k$ is global optima, otherwise, $x_k$ is a local optima.
 
-If the function $f$ is convex, the solution $x_k$ is global optimal solution. Otherwise, $x_k$ is local optimal solution.
-
-The algorithms used to analyze the optimization methods may also collect and return the whole iteration sequence $x_1,...,x_k$.
+The algorithms used to analyze the optimization methods may also collect and return the whole iteration sequence $x_1,...,x_k$. The sequence can then be plotted to visualize the convergence of the method.
 
 
-## Optimization Methods
-Different variants of unconstrained optimization methods are implemented by using different methods to compute the direction and stepsize. The direction can be computed using *gradients*, that is, first order derivative information, or *Hessians*, that is, second order derivative information. The stepsize, that is *optimal* stepsize, is solved as unidimensional optimization problem using linesearch algorithms. Both, the direction and stepsize can be computed using exact or inexact (heuristic) algorithms. In this project, four variants of direction algorithms and two variants of stepsize algorithms were implemented. 
+## Variants of Unconstrained Optimization Method
+We can implement different variants of unconstrained optimization methods by using different methods to compute the direction and step size. The direction can be computed using *gradients*, that is, first-order derivative information or *Hessians*, that is, second-order derivative information. The stepsize, that is, *optimal* stepsize, is solved as a unidimensional optimization problem using line search algorithms. Both the direction and step size can be computed using exact or inexact (heuristic) algorithms. In this project, we implemented four variants of direction algorithms and two variants of stepsize algorithms. 
 
-Direction algorithm computes the direction at the current position $x$.
+The direction algorithm computes the direction at the current position $x$.
 
 1) *Gradient method*. Uses gradient for computing the direction.
 
-2) *Gradient method with momentum (Heavy-Ball)*. Uses convex combination of current and previous gradient for computing the direction. It has weight parameter $w∈(0, 1)$.
+2) *Gradient method with momentum (Heavy-Ball)*. Uses a convex combination of the current and previous gradient for computing the direction. It has weight parameter $w∈(0, 1)$.
 
 3) *Newton's method*. Uses exact Hessian for computing the direction.
 
-4) *Broyden–Fletcher–Goldfarb–Shanno (BFGS) method*. A quasi-Newton method that uses an approximation of Hessian for computing the direction. The BFGS update itself is rule on how to update the Hessian approximation.
+4) *Broyden–Fletcher–Goldfarb–Shanno (BFGS) method*. Uses an approximation of Hessian for computing the direction. The BFGS update itself is a rule on how to update the Hessian approximation. A quasi-Newton method.
 
 Stepsize algorithm finds the optimal stepsize $\bar{λ}$ by solving the unidimensional optimization problem
 $$
@@ -83,14 +79,13 @@ $$
 $$
 where $x$ is the current position and $d$ is the current direction.
 
-1) *Golden linesearch*. An exact algorithm. It has two parameters, initial lower bound $a_0$ and initial upper bound $b_0$.
+1) *Golden line search*. An exact algorithm. It has two parameters, initial lower bound $a_0$ and initial upper bound $b_0$.
 
-2) *Armijo linesearch*. An inexact algorithm. It has three parameters, slope reduction factor $α_0$, $λ$-reduction factor $β_0$ and initial step size $λ_0$.
+2) *Armijo line search*. An inexact algorithm. It has three parameters, slope reduction factor $α_0$, $λ$-reduction factor $β_0$, and initial step size $λ_0$.
 
-Direction and stepsize algorithm can be combined into an optimization method. Then, the performance of different combinations can be measured and compared against each other.
 
 ## Implementation
-The algorithms were implemented and tested using [Julia programming language](https://julialang.org/), version 1.1, in [Jupyter](https://jupyter.org/) notebook. `TimerOutputs.jl` was used for timing and comparing performance of functions. Timing in Julia is explained more in depth by @timing_in_julia. Plotting was done using `Plots.jl`. The detailed implementation of the algorithms, performance measurements and plots is available in the Jupyter notebook, `optimization_methods.ipynb`, supplied with the report.
+The algorithms were implemented and tested using [Julia programming language](https://julialang.org/), version 1.1, in [Jupyter](https://jupyter.org/) notebook. `TimerOutputs.jl` was used for timing and comparing the performance of functions. Timing in Julia is explained more in-depth by @timing_in_julia. Plotting was done using `Plots.jl`. The detailed implementation of the algorithms, performance measurements and plots is available in the Jupyter notebook supplied along with the report.
 
 
 # Numerical results
@@ -100,22 +95,22 @@ The algorithms were implemented and tested using [Julia programming language](ht
 | Memory (RAM) | 16 GiB |
 | Processor | Intel Core i5-7600K CPU @ 3.80GHz $\times$ 4 |
 
-Table: Computer details \label{fig:1}
+Table: Computer details. \label{table:1}
 
-The optimization methods were tested against four different functions. Each subsection describes the particular test function, plots the convergence of each optimization method and execution times of each optimization method tested against the function. Note, because Julia used just-in-time (JIT) compiler, Julia function are compiled on the first function call with that specific signature. Therefore, when timing Julia functions they need one warmup function call before the actual measurement. Details about the computer used for timing are listed in table \ref{fig:1}.
+We measured the performance of the optimization methods against four different functions. Each subsection describes the particular test function, plots the convergence of each optimization method, and execution times of each optimization method tested against the function. Note, because Julia used just-in-time (JIT) compiler, Julia compiles functions on the first function call with that specific signature. Therefore, when timing Julia-functions, they need one warmup function call before the actual measurement. We listed the details about the computer used for timing in table \ref{table:1}.
 
 The numerical paramater for the different optimization methods are set as follows:
 
-* $α_0$
-* $β_0$
-* $w$
+* $α_0=0.01$
+* $β_0=0.7$
+* $w=0.2$
 * $N=10000$
 * $a_0=0$
 * $b_0=10$
 * $λ_0=1$
 * $ϵ = 10^{-5}$
 
-In the results, the optimization methods are referred using notation *direction - stepsize*, for example, *Gradient - Golden* refers to Gradient method with Golden linesearch.
+In the results, we referred to the different optimization methods using notation *direction - stepsize*, for example, *Gradient - Golden* refers to the Gradient method with Golden line search.
 
 
 ## Function 1
@@ -123,23 +118,20 @@ In the results, the optimization methods are referred using notation *direction 
 
 Function 1 is defined as
 $$
-f_1(x_1,x_2) = 0.26 (x_1^2+x_2^2) - 0.48 x_1 x_2.
+f_1(x_1,x_2) = 0.26 (x_1^2+x_2^2) - 0.48 x_1 x_2,
+\label{func:f1}
+\tag{1}
 $$
-The function $f_1$ is a convex function.
-
-The iteration is started from point
-$$
-x_0 = (7.0, 3.0).
-$$
+with starting point $(7.0, 3.0).$ The function 1 is a convex function.
 
 | Method | Time | Iterations
 | ------ | ---- | ----------
-| Gradient - Armijo | $206\,μs$ | 142
-| Heavy Ball - Armijo | $148\,μs$ | 94
-| Gradient - Golden | $96\,μs$ | 15
-| Heavy Ball - Golden | $84\,μs$ | 13
+| Gradient - Armijo | $190\,μs$ | 142
+| Heavy Ball - Armijo | $165\,μs$ | 94
+| Gradient - Golden | $115\,μs$ | 15
+| Heavy Ball - Golden | $94\,μs$ | 13
 
-Table: Performance of optimization methods on function 1.
+Table: Performance of optimization methods on function 1. Times are averages of 1000 measurements. Iterations are the number of iterations until the method converged to a solution. \label{table:2}
 
 
 ## Function 2
@@ -147,27 +139,26 @@ Table: Performance of optimization methods on function 1.
 
 Function 2 is defined as
 $$
-f_2(x_1,x_2) = \exp(x_1+3x_2-0.1) + \exp(x_1-3x_2-0.1)+\exp(-x_1-0.1).
+f_2(x_1,x_2) = \exp(x_1+3x_2-0.1) + \exp(x_1-3x_2-0.1)+\exp(-x_1-0.1),
+\label{func:f2}
+\tag{2}
 $$
-The function $f_2$ is a convex function.
+with starting point $(1.0, 1.5).$ The function 2 is a convex function.
 
-The iteration is started from point
-$$
-(1.0, 1.5).
-$$
+\pagebreak
 
 | Method | Time | Iterations
 | ------ | ---- | ----------
-| Gradient - Golden | $135\,μs$ | 17
-| BFGS - Armijo | $106\,μs$ | 31
-| BFGS - Golden | $95\,μs$ | 8
-| Gradient - Armijo | $78\,μs$ | 32
+| Gradient - Golden | $132\,μs$ | 17
+| BFGS - Armijo | $97\,μs$ | 31
+| BFGS - Golden | $76\,μs$ | 8
 | Heavy Ball - Armijo | $71\,μs$ | 33
-| Newton - Golden | $66\,μs$ | 5
 | Heavy Ball - Golden | $63\,μs$ | 7
-| Newton - Armijo | $56\,μs$ | 9
+| Gradient - Armijo | $56\,μs$ | 32
+| Newton - Golden | $48\,μs$ | 5
+| Newton - Armijo | $27\,μs$ | 9
 
-Table: Performance of optimization methods on function 2.
+Table: Performance of optimization methods on function 2. Times are averages of 1000 measurements. Iterations are the number of iterations until the method converged to a solution. \label{table:3}
 
 
 ## Function 3
@@ -175,63 +166,65 @@ Table: Performance of optimization methods on function 2.
 
 Function 3 is defined as
 $$
-f_3(x_1,x_2) = (x_1^2+x_2-11)^2+(x_1+x_2^2-7)^2.
+f_3(x_1,x_2) = (x_1^2+x_2-11)^2+(x_1+x_2^2-7)^2,
+\label{func:f3}
+\tag{3}
 $$
-Function $f_3$ is not a convex function. This is evident from the figure \ref{fig:f3} where *Heavy Ball - Golden* can be seen to convergence to different local optimum compared to the other methods.
-
-The iteration is started from point
-$$
-(-2.0, 2.0).
-$$
+with starting point $(-2.0, 2.0).$ Function 3 is not a convex function. This is evident from the figure \ref{fig:f3} where *Heavy Ball - Golden* can be seen to convergence to different local optimum compared to the other methods.
 
 | Method | Time | Iterations
 | ------ | ---- | ----------
-| Gradient - Golden | $266\,μs$ | 8
-| Heavy Ball - Golden | $240\,μs$ | 11
-| BFGS - Armijo | $236\,μs$ | 37
-| Gradient - Armijo | $232\,μs$ | 35
-| Newton - Armijo | $175\,μs$ | 25
-| Heavy Ball - Armijo | $159\,μs$ | 28
-| Newton - Golden | $124\,μs$ | 4
-| BFGS - Golden | $99\,μs$ | 4
+| BFGS - Armijo | $117\,μs$ | 37
+| Heavy Ball - Golden | $78\,μs$ | 11
+| Newton - Armijo | $77\,μs$ | 25
+| Gradient - Golden | $61\,μs$ | 8
+| Heavy Ball - Armijo | $60\,μs$ | 28
+| Gradient - Armijo | $51\,μs$ | 35
+| BFGS - Golden | $32\,μs$ | 4
+| Newton - Golden | $31\,μs$ | 4
 
-Table: Performance of optimization methods on function 3.
+Table: Performance of optimization methods on function 3. Times are averages of 1000 measurements. Iterations are the number of iterations until the method converged to a solution. \label{table:4}
 
 ## Function 4
-![$A$ has moderate condition number.](figures/performance_plot_1.svg)
+![Performance plot when $A$ has a moderate condition number. \label{fig:f4_moderate}](figures/performance_plot_1.svg)
 
-![$A$ has higher condition number.](figures/performance_plot_2.svg)
+![Performance plot when $A$ has a higher condition number. \label{fig:f4_high}](figures/performance_plot_2.svg)
 
 The function 4 is defined as
 $$
-f_4(x) = (1/2) x^T Ax - b^T, x∈𝐑^{150}.
+f_4(x) = (1/2) x^T Ax - b^T, x∈𝐑^{150}.
+\label{func:f4}
+\tag{4}
 $$
-where $A$ is positive-definite (PD) matrix. The function $f_ 4$ is a convex function.
+where $A$ is positive-definite matrix. The function 4 is a convex function.
 
-The iteration is started from point 
+The iteration starting points is
 $$
-x_0=(1, 1, ..., 1)∈𝐑^{150}.
+(1, 1, ..., 1)∈𝐑^{150}.
 $$
 
-The performance of different optimization methods is measured in two cases:
+We measured the performance of different optimization methods in two cases:
 
-1) $A$ has a moderate condition number.
-2) $A$ has a higher condition number.
+1) When $A$ has a moderate condition number.
+2) When $A$ has a higher condition number.
 
-In each case, the measurement is done using 100 distinct instances with random $A$ and $b$.
+In each case, the measurement is done using 100 distinct instances with random $A$ and $b$. The resulting measurement, seen in figures \ref{fig:f4_moderate} and \ref{fig:f4_high}, are represented using *performance ratios* as described by @benchmarking_optimization. 
 
-The resulting measurement can be seen in figures ???.
+The performance ratio $τ$ is defined as the timing of a specific instance divided by the minimum timing of all instances of all optimization methods. Performance ratio of $τ=1$ represents the quickest timing, and for example, $τ=4$ means that instance took $4$ times longer than the fastest instance of all optimization methods.
 
-It can be seen that when $A$ has a moderate condition number, the gradient based methods, Gradient and Heavy ball, converge faster than the Hessian based methods. Vice versa, when $A$ has a higher condition number, the Hessian based methods, Newton and BFGS, converge faster than the gradient based methods.
+In the figures \ref{fig:f4_moderate} and \ref{fig:f4_high}, the $x$-axis is the performance ratio $τ$ and the $y$-axis is the cumulative distribution of performance ratios. The cumulative distribution describes the probability that a particular method has reached an optimal solution with a performance ratio of less or equal to $τ$.
 
-In gradient based methods, Amirjo linesearch seems to outperform Golden. In Hessian based methods, both Amirjo and Golden linesearch versions seem to perform equally well.
+We see that when $A$ has a moderate condition number, the gradient-based methods, Gradient, and Heavy ball, converge faster than the Hessian based methods. Vice versa, when $A$ has a higher condition number, the Hessian based methods, Newton and BFGS, converge faster than the gradient-based methods.
+
+In gradient-based methods, the Amirjo line search seems to outperform Golden. In Hessian based methods, both Amirjo and Golden line search versions seem to perform equally well.
 
 
 # Discussion and conclusions
-- The solutions for the functions that are convex are global optimas.
-- Methods using Armijo linesearch do more iterations and zigzag before converging due to inexact nature
-- However, Armijo linesearch is faster to compute than Golden linesearch
-- Optimization methods on function 1, 2, and 3 are ranked by their performance in tables ???
+The optimization methods produce solution that are global optima when applied to functions that are (quasi) convex. Functions \ref{func:f1}, \ref{func:f2}, and \ref{func:f4} are convex, and thus their solutions are global.
+
+Optimization methods on functions \ref{func:f1}, \ref{func:f2}, and \ref{func:f3} are ranked by their performance in tables \ref{table:2}, \ref{table:3}, \ref{table:4}. For each method, the timing is an average of 1000 individual timings.
+
+Evident from the tables \ref{table:2}, \ref{table:3}, and \ref{table:4}, methods using Armijo line search perform more iterations compared to methods using Golden line search. This can be seen as the zigzag pattern in the convergence of methods using Armijo in figures \ref{fig:f1}, \ref{fig:f2}, and \ref{fig:f3}. However, the Armijo line search is much faster to compute than the Golden line search. Therefore, methods using the Amirjo line search can be faster than their counterpart method, that is, for the same direction algorithm, using the Golden line search, as can be seen in figures \ref{fig:f4_moderate} and \ref{fig:f4_high}.
 
 
 # References
