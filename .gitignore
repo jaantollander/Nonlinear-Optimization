@@ -2,8 +2,12 @@ build/
 .ipynb_checkpoints
 *.zip
 *.pdf
+Exercise*/
 template_tex/
 
+# include the project report
+!Project 1/build/
+!Project 1/build/report.pdf
 
 ## Tex
 ## Core latex/pdflatex auxiliary files:

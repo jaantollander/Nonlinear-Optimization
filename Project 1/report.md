@@ -55,13 +55,13 @@ Conceptually, an unconstrained optimization method is implemented as follows:
 
 ---
 
-The idea is that the algorithm takes a step of size $λ_k$ into a direction $d_k$ each iteration $k$ until it reaches the optimality condition. Numerically, the optimality condition is that the gradient is close enough to zero; that is, the norm of the gradient is less than the set tolerance $ϵ$. If the function $f$ is convex or quasi-convex, the solution $x_k$ is global optima, otherwise, $x_k$ is a local optima.
+The idea is that the algorithm takes a step of size $λ_k$ into a direction $d_k$ each iteration $k$ until it reaches the optimality condition. Numerically, the optimality condition is that the gradient is close enough to zero; that is, the norm of the gradient is less than the set tolerance $ϵ$. If the function $f$ is convex, the solution $x_k$ is global optima, otherwise, $x_k$ is a local optima.
 
 The algorithms used to analyze the optimization methods may also collect and return the whole iteration sequence $x_1,...,x_k$. The sequence can then be plotted to visualize the convergence of the method.
 
 
 ## Variants of Unconstrained Optimization Method
-We can implement different variants of unconstrained optimization methods by using different methods to compute the direction and step size. The direction can be computed using *gradients*, that is, first-order derivative information or *Hessians*, that is, second-order derivative information. The stepsize, that is, *optimal* stepsize, is solved as a unidimensional optimization problem using line search algorithms. Both the direction and step size can be computed using exact or inexact (heuristic) algorithms. In this project, we implemented four variants of direction algorithms and two variants of stepsize algorithms. 
+We can implement different variants of unconstrained optimization methods by using different methods to compute the direction and step size. The direction can be computed using *gradients*, that is, first-order derivative information or *Hessians*, that is, second-order derivative information. The *optimal* step size, is solved as a unidimensional optimization problem using line search algorithms. Both the direction and step size can be computed using exact or inexact (heuristic) algorithms. In this project, we implemented four variants of direction algorithms and two variants of stepsize algorithms. In the implementations, the optimization problem is considered as minimization problem.
 
 The direction algorithm computes the direction at the current position $x$.
 
@@ -220,7 +220,7 @@ In gradient-based methods, the Amirjo line search seems to outperform Golden. In
 
 
 # Discussion and conclusions
-The optimization methods produce solution that are global optima when applied to functions that are (quasi) convex. Functions \ref{func:f1}, \ref{func:f2}, and \ref{func:f4} are convex, and thus their solutions are global.
+The optimization methods produce solution that are global optima when applied to functions that are convex. Functions \ref{func:f1}, \ref{func:f2}, and \ref{func:f4} are convex, and thus their solutions are global.
 
 Optimization methods on functions \ref{func:f1}, \ref{func:f2}, and \ref{func:f3} are ranked by their performance in tables \ref{table:2}, \ref{table:3}, \ref{table:4}. For each method, the timing is an average of 1000 individual timings.
 
