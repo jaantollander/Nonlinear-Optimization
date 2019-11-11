@@ -1,8 +1,8 @@
-template*/
 build/
 .ipynb_checkpoints
 *.zip
 *.pdf
+template_tex/
 
 
 ## Tex
