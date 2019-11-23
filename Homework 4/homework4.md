@@ -141,21 +141,37 @@ $$
 with decision variables $x∈𝐑^n$, the problem data $A∈𝐑^{m×n}$ and $b∈𝐑^m$ and the dual variables $v∈𝐑^m$.
 
 ## (b)
-
+Lets solve the Lagrangian dual function $θ(v)$ 
 $$
 \begin{aligned}
-θ(v) &= \inf \{ϕ(v)∣x∈X\} \\
-&= \inf \{x^T x + v^T (Ax-b)∣x∈X\} \\
-&= \inf \{x^T x + v^TAx - v^Tb∣x∈X\} \\
+∇_x ϕ(v) &= 0 \\
+∇_x (x^T x + v^TAx - v^Tb) &= 0 \\
+2x + v^T A &= 0 \\
+x &= -1/2 v^T A
+\end{aligned}
+$$
+By substituting $x$ into $θ$ we have
+$$
+\begin{aligned}
+θ(v) &= (-1/2 v^T A)^T (-1/2 v^T A) + v^T A (-1/2 v^T A) -v^Tb \\
+&= 1/4 (v^T A)^T (v^T A) -1/2 (v^T A) (v^T A) - v^T b \\
+&= 1/4 (A^T v) (v^T A) -1/2 (v^T A) (v^T A) - v^T b \\
+\end{aligned}
+$$
+Now, we need to solve
+$$
+\sup \{θ(v)∣v≥0\}.
+$$
+We will do this by solving
+$$
+\begin{aligned}
+∇_v θ(v) = 0 \\
+1/4 (A^T A^T + A A) v - 1/2 (A(v^TA)+(v^TA)A) - b = 0 \\
 ...
 \end{aligned}
 $$
 
-...
-
-$$
-\sup \{θ(v)∣v≥0\}
-$$
+Slater CQ holds since $h(x)=Ax-b$ is affine function. Therefore also strong duality holds and the solution to Lagrangian dual is a primal solution.
 
 
 # Homework 4.4 Concavity of Lagrangian Dual Functions
