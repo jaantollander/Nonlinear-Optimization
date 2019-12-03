@@ -118,69 +118,85 @@ We will use the generic form when applying ADMM to the problem in the next secti
 
 
 # Applications
-In this section we will introduce the stochastic capacity expansion problem and then derive the ADMM formulation for the problem.
-
-The objective function is defined as
+In this section, we derive the ADMM formulation for the *stochastic capacity expansion problem*. The objective function is defined as
 $$
-f(x) = ∑_{i∈I} c_i x_i + ∑_{s∈S} p_s \left(∑_{i∈I}∑_{j∈J}f_{i,j}y_{i,j,s} + ∑_{j∈J} q_j u_{j,s}\right)
+∑_{i∈I} c_i x_i + ∑_{s∈S} p_s \left(∑_{i∈I}∑_{j∈J}f_{i,j}y_{i,j,s} + ∑_{j∈J} q_j u_{j,s}\right)
 $$
 with parameters $c_i,f_{i,j},q_{j}$ and probabilities $p_s$.
 
----
-
-The augmented Lagrangian is 
+The problem is separable in terms of scenarios $S$. We need to introduce the scenario dependent variables $x_s$ for the variable $x$ such that
 $$
-L_ρ(x,z,v) = f(x) + g(z) + v^T (x - z) + (ρ/2) \|x-z\|_2^2
+∑_{s∈S} p_s f(x_s) = ∑_{s∈S} p_s \left(∑_{i∈I} c_i x_{i,s} + ∑_{i∈I}∑_{j∈J}f_{i,j}y_{i,j,s} + ∑_{j∈J} q_j u_{j,s}\right).
 $$
 
-$g(z)=0$ and $v^T z = 0$
+The augmented Lagrangian is form as
+$$
+L_ρ(x_s,z,v_s) = f(x_s) + g(z) + v_s^T (x_s - z) + (ρ/2) \|x_s-z\|_2^2.
+$$
 
+We have $g(z)=0$ and $v^T z = 0$
 $$
-L_ρ(x,z,v) = f(x) + v^T x - z + (ρ/2) \|x-z\|_2^2
+L_ρ(x_s,z,v_s) = f(x_s) + v_s^T x_s + (ρ/2) \|x_s-z\|_2^2.
 $$
 
----
-
-The  is separable in terms of $S$, $x$ to $x_s$
-$$
-∑_{s∈S} p_s \left(∑_{i∈I} c_i x_{i,s} + ∑_{i∈I}∑_{j∈J}f_{i,j}y_{i,j,s} + ∑_{j∈J} q_j u_{j,s} + v^T x_s + (ρ/2) \|x_s-z\|_2^2\right) 
-$$
+<!-- $$
+\begin{aligned}
+& ∑_{s∈S} p_s L_ρ(x_s,z,v_s) = \\
+& ∑_{s∈S} p_s \left(∑_{i∈I} c_i x_{i,s} + ∑_{i∈I}∑_{j∈J}f_{i,j}y_{i,j,s} + ∑_{j∈J} q_j u_{j,s} + v_s^T x_s + (ρ/2) \|x_s-z\|_2^2\right) 
+\end{aligned}
+$$ -->
 
 ---
 
 The ADMM algorithm consists of the following iterations
 $$
 \begin{aligned}
-x_{k+1} &= \operatorname{argmin}_x L_ρ(x, z_{k}, v_{k}) \\
-z_{k+1} &= \operatorname{argmin}_z L_ρ(x_{k+1}, z, v_{k}) \\
-v_{k+1} &= v_{k} + ρ(v_{k+1}-z_{k+1}).
+x_s^{k+1} &= \operatorname{argmin}_{x_s} L_ρ(x_s, z^{k}, v_s^{k}) \\
+z^{k+1} &= \operatorname{argmin}_z ∑_{s∈S} p_s L_ρ(x_s^{k+1}, z, v_s^{k}) \\
+v_s^{k+1} &= v_s^{k} + ρ(x_s^{k+1}-z^{k+1}).
 \end{aligned}
 $$
+with a stopping criterion
+$$
+∑_{s∈S} p_s ρ \|x_s^{k+1}-z^k\|_2 < ϵ,
+$$
+where $ϵ>0$.
 
 ---
 
-$z$ update ...
+Since $z$ is unconstrained, we can obtain the $z$ update by taking the gradient and setting it to zero.
+$$
+\begin{aligned}
+∇_z L_ρ(x_{k+1}, z, v_{k}) &= 0 \\
+∑_{s∈S} p_s ρ(x_s^{k+1}-z) &= 0
+\end{aligned}
+$$
+with $∑_{s∈S} p_s=1$ yields
+$$
+z^{k+1} = ∑_{s∈S} p_s x_s^{k+1}.
+$$
 
-$$
-∇_z L_ρ(x_{k+1}, z, v_{k}) = 0
-$$
-
----
-
-Stopping criterion
-$$
-∑_{s∈S} p_s \|x_s-z\|_2 < ϵ
-$$
 
 \pagebreak
-
 
 # Discussion and Conclusions
 ![Small instance \label{fig:1}](figures/admm_small_instance.svg)
 
 ![Large instance \label{fig:2}](figures/admm_large_instance.svg)
 
-We study the number of iterations $k$ as a function of the penalty parameter $\rho$ for convergence with solution tolerance $ϵ=10^{-3}$.
+We experimented with two instances of the stochastic capacity expansion problem. The small instance has $|S|=100$ and a large instance has $|S|=500$,  and both have $|I|=20$ and $|J|=30$. 
+
+For both instances, we analyzed the number of iterations $k$ as a function of the penalty parameter $\rho$ for convergence with solution tolerance $ϵ=10^{-1}$. Figures \ref{fig:1} and \ref{fig:2} visualize how the number of iterations grows as the penalty parameters grows for both instances. In other words, the performance of ADMM is best with a lower penalty parameter.
+
+Instance | Deterministic | ADMM ($ρ=1$)
+- | ------------- | ----
+Small | $20$ s | $16$ s
+Large | $205$ s | $106$ s
+
+Table: Comparison of the performance of the deterministic method and ADMM. \label{table:1}
+
+We also compared the performance of the deterministic method, that is, solving the problem using the interior point method, and ADMM.  As can be seen in table \ref{table:1}, ADMM is faster than the deterministic method for the large instance. ADMM is faster because it parallelizes the problem and uses multiple processors for computing the solution.
+
 
 \pagebreak
 
