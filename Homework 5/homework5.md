@@ -52,11 +52,11 @@ where $e=𝟏$ is a vector of ones and $X=\operatorname{diag}(x)$.
 Then the KKT conditions are
 $$
 \begin{aligned}
-∇(f(\bar{x})+μB(x)) + ∇h(\bar{x}) v &= 0 \\
-c + Q \bar{x} - μX^{-1}e + A^T v &= 0 \\
+∇(f(\bar{x})+μB(\bar{x})) + ∇h(\bar{x}) v &= 0 \\
+c + Q \bar{x} - μ\bar{X}^{-1}e + A^T v &= 0 \\
 \end{aligned}
 $$
-where $v∈𝐑^m$. Also, $h(\bar{x})=0$ and $x>0$.
+where $v∈𝐑^m$. Also, $h(\bar{x})=0$ and $\bar{x}>0$.
 
 
 ## c)
