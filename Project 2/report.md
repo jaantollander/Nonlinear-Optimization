@@ -21,6 +21,7 @@ header-includes: |
 urlcolor: blue
 bibliography: bibliography.bib
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/harvard-anglia-ruskin-university.csl
+link-citations: true
 ---
 
 \begin{center}
