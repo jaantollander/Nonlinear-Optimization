@@ -6,10 +6,10 @@ Exercise*/
 template_tex/
 
 # include the project report
-!Project 1/build/
-!Project 1/build/report.pdf
-!Project 2/build/
-!Project 2/build/report.pdf
+!Project_1/build/
+!Project_1/build/report.pdf
+!Project_2/build/
+!Project_2/build/report.pdf
 
 ## Tex
 ## Core latex/pdflatex auxiliary files:
